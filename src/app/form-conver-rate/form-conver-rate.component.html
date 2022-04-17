@@ -1,0 +1,79 @@
+<form [formGroup]="form" >
+  <div class="row mb-1">
+		<div class="col" *ngFor="let select of ratesService.selects; let i = index">
+			<select
+        formControlName="{{select.idname}}" ngModel
+				class="form-control"
+        name="{{select.idname}}"
+        (change)="selectHandler($event.target)"
+
+			>
+        <option value="" disabled>Виберіть валюту</option>
+				<option
+        *ngFor="let rate of ratesService.exchangeRates; let i = index"
+        value="{{rate.cc}}"
+        ngValue="{{rate.id}}"
+        >
+        {{rate.cc}} — {{rate.txt}}
+      </option>
+
+			</select>
+		</div>
+    <!-- // col -->
+
+  </div>
+<!-- // row1 -->
+
+	<div class="row" >
+		<div class="col" >
+			<input
+				formControlName="inputOne"
+				type="text"
+				title="Введіть число"
+				class="form-control"
+				id="name"
+        name="inputOne"
+        placeholder="0"
+        [readonly]="!testForm.select"
+        autocomplete="off"
+        (input)="inputHandler($event)"
+			/>
+      <div *ngIf="inputOne.invalid" class="error-message">Введіть числове значення(n.nn)!</div>
+		</div>
+    <!-- // col -->
+
+    <div class="col">
+			<input
+				formControlName="inputTwo"
+				type="text"
+				title="Введіть число"
+				class="form-control"
+				id="name"
+        name="inputTwo"
+        placeholder="0"
+        [readonly]="!testForm.select"
+        autocomplete="off"
+        (input)="inputHandler($event)"
+			/>
+      <div *ngIf="inputTwo.invalid" class="error-message">Введіть числове значення(n.nn)!</div>
+		</div>
+    <!-- // col -->
+
+	</div>
+  <!-- // row2 -->
+  <div class="row" >
+    <div class="col">
+      <div class="error-message">{{errorMessage}}</div>
+    </div>
+  </div>
+  <!-- // row3 -->
+
+  <div class="row" >
+    <div class="col">
+      <button [disabled]="!testForm.valid" (click)="cleanInput()" type="button" class="btn btn-secondary">Очистити форму</button>
+    </div>
+
+  </div>
+  <!-- // row4 -->
+</form>
+
