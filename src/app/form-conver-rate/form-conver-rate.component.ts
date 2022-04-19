@@ -32,7 +32,7 @@ export class FormConverRateComponent implements OnInit{
   inputHandler(event: any){
 
     const rates = this.ratesService.exchangeRates;
-    event.target.value = event.target.value.replace(/[^0-9\.]/g, '');
+    event.target.value = event.target.value.replace(/[^0-9\.]/, '');
 
     if(this.form.value.selectOne !=='' && this.form.value.selectTwo !== ''){
       this.errorMessage = "";
@@ -84,12 +84,12 @@ export class FormConverRateComponent implements OnInit{
 
     }else{
       this.form.statusChanges.subscribe((status) => {
-      if(this.selectOne.status === 'INVALID' || this.selectTwo.status === 'INVALID'){
-        this.errorMessage = 'Виберіть валюту';
-      }else {
-        this.testForm.select = true;
-      }
-    });
+        if(this.selectOne.status === 'INVALID' || this.selectTwo.status === 'INVALID'){
+          this.errorMessage = 'Виберіть валюту';
+        }else {
+          this.testForm.select = true;
+        }
+      });
     }
   }
 
