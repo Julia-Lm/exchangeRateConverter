@@ -1,12 +1,11 @@
-<div *ngIf="!loading">
+
   <div class="courses">
     <div class="course-item card card-body " *ngFor="let rate of ratesService.exchangeRates| slice:0:2">
         <div class="course-item-title">Курс {{rate.cc}}</div>
         <div class="course-item-value" >{{rate.rate.toFixed(2)}}</div>
     </div>
   </div>
-</div>
-<div *ngIf="loading">Loading...</div>
+
 
 
 

@@ -10,7 +10,6 @@ import 'rxjs/operators';
 })
 export class FormConverRateComponent implements OnInit{
 
-  errorMessage = 'Виберіть валюту'
   testForm = {valid: false, select: false}
 
   constructor(public ratesService: RatesService) {  }
@@ -32,10 +31,10 @@ export class FormConverRateComponent implements OnInit{
   inputHandler(event: any){
 
     const rates = this.ratesService.exchangeRates;
-    event.target.value = event.target.value.replace(/[^0-9\.]/, '');
+    event.target.value = event.target.value.replace(/[^0-9\.]/g, '');
 
     if(this.form.value.selectOne !=='' && this.form.value.selectTwo !== ''){
-      this.errorMessage = "";
+      this.ratesService.errorMessage = "";
       this.testForm.valid = true;
 
 
@@ -62,7 +61,7 @@ export class FormConverRateComponent implements OnInit{
 
     if(this.form.value.selectOne !=='' && this.form.value.selectTwo !== ''){
       if(this.form.value.inputOne !== null && this.form.value.inputTwo !== null){
-        this.errorMessage = "";
+        this.ratesService.errorMessage = "";
         this.testForm.valid = true;
 
         let selectOneId = rates.findIndex(elem => +elem.id === +this.form.value.selectOne);
@@ -83,13 +82,14 @@ export class FormConverRateComponent implements OnInit{
       }
 
     }else{
+      this.ratesService.errorMessage = 'Виберіть валюту';
       this.form.statusChanges.subscribe((status) => {
-        if(this.selectOne.status === 'INVALID' || this.selectTwo.status === 'INVALID'){
-          this.errorMessage = 'Виберіть валюту';
-        }else {
-          this.testForm.select = true;
-        }
-      });
+      if(this.selectOne.status === 'INVALID' || this.selectTwo.status === 'INVALID'){
+        this.ratesService.errorMessage = 'Виберіть валюту';
+      }else {
+        this.testForm.select = true;
+      }
+    });
     }
   }
 
@@ -100,7 +100,7 @@ export class FormConverRateComponent implements OnInit{
   }
 
   ngOnInit() {
-
+    this.ratesService.errorMessage = 'Виберіть валюту';
   }
 
 }

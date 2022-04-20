@@ -6,16 +6,9 @@ import {RatesService} from '../shared/rates.service';
   templateUrl: './rate-title.component.html',
   styleUrls: ['./rate-title.component.scss']
 })
-export class RateTitleComponent implements OnInit {
-
-  public loading: boolean = true
+export class RateTitleComponent {
 
   constructor(public ratesService: RatesService) { }
 
-  ngOnInit() {
-    this.ratesService.fetchRates().subscribe(()=>{
-      this.loading = false
-    });
-  }
 
 }

@@ -4,11 +4,23 @@
 			<!-- Content -->
 			<div class="card p-3">
 			  <h1 class="h2 mb-4">{{appTitle}}</h1>
-
-        <app-rate-title ></app-rate-title>
+        <div *ngIf="!loading">
+          <app-rate-title ></app-rate-title>
         <!-- // app-rate-title -->
         <app-form-conver-rate></app-form-conver-rate>
           <!-- // app-form-conver-rate -->
+        </div>
+
+        <div *ngIf="loading" class="loading">
+
+          <div class="lds-hourglass"></div>
+
+          <div class="row" >
+            <div class="col">
+              <div class="error-message" >{{ratesService.errorMessage}}</div>
+            </div>
+          </div>
+        </div>
 			</div>
 			<!-- // Content -->
 		</div>

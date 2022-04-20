@@ -16,6 +16,8 @@ export interface SelectClass {
 @Injectable({providedIn: 'root'})
 
 export class RatesService {
+  public errorMessage: string = ''
+
   public exchangeRates: Rates [] = []
 
   public selects: SelectClass [] = [
@@ -37,6 +39,12 @@ export class RatesService {
           }
         });
         this.exchangeRates.push({id: 3, txt: 'Гривні', rate: 1.00, cc: 'UAH'});
+      }),
+      catchError((error: any) => {
+            console.log(error.message);
+            //console.log(error.message);
+            this.errorMessage = error.message;
+            return this.exchangeRates = [];
       })
     )
 
